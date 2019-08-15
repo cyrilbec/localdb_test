@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MartinCostello.SqlLocalDb" Version="2.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="2.2.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.0.1" />
+    <PackageReference Include="xunit" Version="2.4.0" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.0" />
+  </ItemGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="xcopy /y /d &quot;$(SolutionDir)..\dacpac\*.dacpac&quot; &quot;$(ProjectDir)$(OutDir)&quot;&#xD;&#xA;mkdir &quot;$(ProjectDir)$(OutDir)\sqlpackage&quot;&#xD;&#xA;xcopy /y /s /d &quot;$(SolutionDir)..\utils\sqlpackage&quot; &quot;$(ProjectDir)$(OutDir)\sqlpackage&quot;" />
+  </Target>
+
+</Project>
